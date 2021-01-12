@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            background-color: yellow;
+        }
+    </style>
 </head>
 <body>
-    <form action="{% url 'starts:catch' %}" method="GET">
-        <label for="message">Throw</label>
-        <input type="text" name="message" id="message">
-        <input type="submit">
-    </form>
+    {% block content %}
+    {% endblock %}
 </body>
 </html>

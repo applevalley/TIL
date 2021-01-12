@@ -21,6 +21,10 @@ def dinner(request):
     return render(request, 'dinner.html', context)
 
 
+def form(request):
+    return render(request, 'form.html')
+
+
 def throw(request):
     return render(request, 'throw.html')
 
