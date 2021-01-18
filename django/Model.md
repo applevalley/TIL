@@ -182,12 +182,66 @@ Article.objects.all()
     - unique, not null 특징이 있으면 사용 가능 (id같은 것)
     - 반환 자체는 쿼리셋이 아니라 object 하나를 돌려준다.
     - 반환이 된다는 것은 그것을 변수에 할당도 가능하다는 것을 의미한다.
+  - filter()
+    - 쿼리셋을 리턴한다.
+    - 찾는 것이 없더라도 일단 빈 쿼리셋을 돌려준다.
+    - 지정된 조회 매개 변수와 일치하는 새 객체를 포함하는 새 쿼리셋을 반환
+    - lookup
+      - get(pk=1)은 get(id__exact=1)와 동일한 의미를 가진다.
+      - 그렇기에 get(id=1)으로도 사용이 가능한 것이다. 
 
-- `filter`
-  - 쿼리셋을 리턴한다.
-  - 찾는 것이 없더라도 일단 빈 쿼리셋을 돌려준다.
-  - 지정된 조회 매개 변수와 일치하는 새 객체를 포함하는 새 쿼리셋을 반환
-  - lookup
-    - get(pk=1)은 get(id__exact=1)와 동일한 의미를 가진다.
-    - 그렇기에 get(id=1)으로도 사용이 가능한 것이다. 
+- `Update`
+
+  - 무엇을 수정할 것인가? 선택이 먼저 ( 인스턴스 생성 )
+  - 인스턴스 변수에 접근해 값을 변경하고 저장한다.
+  - DB에 저장하는 시점은 마지막 save() 메서드!
+  - 정보가 갱신이 되면 models.py의 updated_at도 바뀐다.
+
+```shell
+article.title
+# 'abcd'
+
+article.title = 'ababcd'   # 일단 변수는 수정했지만 아직 DB에는 아무런 영향이 없다.
+article.save()
+
+article.title
+# 'ababcd'
+```
+
+- `Delete`
+  - 무엇을 삭제할 것인가? 선택
+  - `.delete()` 메서드를 호출하면 삭제가 된다.
+  - 삭제하는 것이기 때문에 .save() 메서드를 사용하지 않는다.
+  - pk값을 이렇게 지우고 나면 재사용되지 않는다. 새로 생성한 데이터의 pk값은 삭제된 pk값이 아니다.
+  - 삭제한 pk값을 다시 조회 시도하면 DoesNotExist 에러를 돌려준다.
+
+# Admin
+
+- 서버 관리자가 활용하기 위한 페이지.  반드시 기본 테이블 생성 이후에 관리자를 생성해야 한다.
+- 관리자 계정만 만든다고 끝이 아니다. 
+  - models.py에서 정의한 모델을 admin.py에 등록해야 어드민 페이지에서 관리할 수 있다.
+
+
+
+```shell
+$ python manage.py createsuperuser   # 관리자 계정 만들기
+
+# admin.py
+from .models import Article   #  현재 앱의 models.py에서 Article 모델 클래스를 불러온다
+
+admin.site.register(Article)  # 등록
+```
+
+
+
+
+
+# 정리
+
+- django는 모델을 통해 데이터에 접속, 관리
+- DB는 체계화된 데이터들의 집합
+- ORM은 OOP 언어를 이용해 호환 안되는 유형의 시스템간 데이터를 변환하는 기술
+- 모델 안에는 Char, Text, DateTime, Integer, Boolean 등의 필드가 있음
+- 모델을 변경한 후에는 makemigrations하고 그것을 migrate해야 DB에 반영된다
+- DB API를 이용해 쿼리를 보내서 CRUD 동작을 할 수 있다
 
