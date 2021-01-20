@@ -3,7 +3,7 @@ from django import forms
 
 class ArticleForm(forms.Form):
     title = forms.CharField(max_length=10)
-    content = forms.CharField(max_length=150)
+    content = forms.CharField(max_length=150, widget=forms.Textarea)
 # from django import forms
 # from .models import Article
 
