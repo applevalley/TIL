@@ -23,6 +23,7 @@
     - input에 대한 옵션들을 바꿔주는 것이 위젯
       - form의 fields에 할당된다! 위젯 자체를 form fields와 혼동하지 말 것
     - HTML의 input 요소에 대한 표현을 담당한다.
+    - textarea를 바로 출력할 수 있는 필드가 forms에 없기에 CharField의 위젯 옵션을 통해 input의 속성을 바꾸는 것! input을 이제 label 안에 직접 작성하지 않고 {{ form_as.p }}처럼 한 줄로 쓰기 때문! as_x처럼 정해진 경우가 아니라면 타입도 따로 줄 수 없다. 그렇기에 forms에서 설정해주는 것.
 
 - 폼과 HTML 태그
   - `form.as_p`: 폼의 각 필드를 p 태그 안에서 레이블, 텍스트로 배치(각 필드가 단락으로 렌더링)
